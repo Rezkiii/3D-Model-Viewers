@@ -1,23 +1,25 @@
-# Simple Web 3D Viewer 🧊
+# Web 3D Viewer
 
-Proyek iseng ("gabut") buat nampilin model 3D langsung di browser. Gak perlu install software berat kayak Blender cuma buat ngecek bentuk model doang. Tinggal drag & drop file `.glb`, `.gltf`, atau `.obj`, kelar.
+Aplikasi web sederhana untuk menampilkan model 3D langsung di browser. Dibuat untuk melihat file `.glb`, `.gltf`, atau `.obj` tanpa perlu membuka software 3D editor.
 
-Dibangun pake **Next.js 16**, **React Three Fiber**, sama **Tailwind CSS**.
+## Fitur
 
-## ✨ Fitur
+- **Format File**: Mendukung file `.glb`, `.gltf`, dan `.obj`.
+- **Lighting Controls**: Pengaturan pencahayaan yang dapat disesuaikan (Ambient, Directional, dan Point Light).
+- **Model Rotation**: Slider untuk merotasi model pada sumbu X, Y, dan Z.
+- **Texture Upload**: Fitur untuk mengunggah dan menerapkan tekstur gambar pada model.
+- **Viewer Controls**: Zoom, pan, dan orbit menggunakan kontrol standar.
 
-- **Support Format Populer**: Bisa baca file `.glb`, `.gltf`, dan `.obj`.
-- **Lighting Control**: Atur pencahayaan scene sesuka hati via panel kontrol (Ambient, Directional, Point Light).
-- **Model Manipulation**: Puter-puter modelnya (rotasi X, Y, Z) langsung dari UI kalau males nge-drag scene.
-- **Texture Support**: Punya file tekstur terpisah? Upload aja gambarnya, nanti otomatis ditempel ke modelnya.
-- **Orbit Controls**: Zoom in, zoom out, geser kanan-kiri standar viewer 3D.
-- **Responsive**: Tampilan aman dibuka di layar gede maupun kecil (tapi ya enakan di desktop sih buat 3D).
+## Tech Stack
 
-## 🛠️ Cara Jalanin di Lokal
+- **Next.js 16** (App Router)
+- **React Three Fiber**
+- **Tailwind CSS**
+- **Lucide React**
 
-Pastikan udah install Node.js ya.
+## Cara Menjalankan
 
-1.  **Clone repo ini** (atau download zip-nya):
+1.  **Clone repository**:
     ```bash
     git clone https://github.com/username/web-3d-viewer.git
     cd web-3d-viewer
@@ -27,27 +29,16 @@ Pastikan udah install Node.js ya.
     ```bash
     npm install
     ```
-    *(Tungguin bentar, tergantung koneksi internet...)*
 
-3.  **Jalanin server dev**:
+3.  **Jalankan server development**:
     ```bash
     npm run dev
     ```
 
-4.  Buka browser, akses `http://localhost:3000`.
+4.  Buka browser dan akses `http://localhost:3000`.
 
-## ⚠️ Catatan
+## Catatan
 
-- Buat pengguna **Blender**: File `.blend` gak bisa langsung dibaca browser. Export dulu ke format **glTF 2.0 (.glb/.gltf)** atau **Wavefront (.obj)** lewat menu `File > Export` di Blender.
-- Tekstur yang di-upload bakal ditempel "rata" ke semua mesh di model. Cocok buat model simpel, tapi mungkin aneh buat model yang UV map-nya kompleks banget.
+- **Format Blender**: File asli Blender (`.blend`) tidak didukung secara langsung. Silakan export menjadi **glTF 2.0 (.glb/.gltf)** atau **Wavefront (.obj)** terlebih dahulu.
+- **Tekstur**: Tekstur yang diunggah akan diterapkan secara global ke seluruh mesh pada model.
 
-## 📦 Tech Stack
-
-- [Next.js](https://nextjs.org/) (App Router)
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) (Three.js for React)
-- [Drei](https://github.com/pmndrs/drei) (Helpers buat R3F)
-- [Tailwind CSS](https://tailwindcss.com/) (Styling sat-set)
-- [Lucide React](https://lucide.dev/) (Icon)
-
-___
-*Dibuat pas lagi gabut. Enjoy! 🚀*
