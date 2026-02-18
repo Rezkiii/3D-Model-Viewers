@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simple Web 3D Viewer 🧊
 
-## Getting Started
+Proyek iseng ("gabut") buat nampilin model 3D langsung di browser. Gak perlu install software berat kayak Blender cuma buat ngecek bentuk model doang. Tinggal drag & drop file `.glb`, `.gltf`, atau `.obj`, kelar.
 
-First, run the development server:
+Dibangun pake **Next.js 16**, **React Three Fiber**, sama **Tailwind CSS**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Fitur
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Support Format Populer**: Bisa baca file `.glb`, `.gltf`, dan `.obj`.
+- **Lighting Control**: Atur pencahayaan scene sesuka hati via panel kontrol (Ambient, Directional, Point Light).
+- **Model Manipulation**: Puter-puter modelnya (rotasi X, Y, Z) langsung dari UI kalau males nge-drag scene.
+- **Texture Support**: Punya file tekstur terpisah? Upload aja gambarnya, nanti otomatis ditempel ke modelnya.
+- **Orbit Controls**: Zoom in, zoom out, geser kanan-kiri standar viewer 3D.
+- **Responsive**: Tampilan aman dibuka di layar gede maupun kecil (tapi ya enakan di desktop sih buat 3D).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Cara Jalanin di Lokal
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Pastikan udah install Node.js ya.
 
-## Learn More
+1.  **Clone repo ini** (atau download zip-nya):
+    ```bash
+    git clone https://github.com/username/web-3d-viewer.git
+    cd web-3d-viewer
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+    *(Tungguin bentar, tergantung koneksi internet...)*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Jalanin server dev**:
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4.  Buka browser, akses `http://localhost:3000`.
 
-## Deploy on Vercel
+## ⚠️ Catatan
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Buat pengguna **Blender**: File `.blend` gak bisa langsung dibaca browser. Export dulu ke format **glTF 2.0 (.glb/.gltf)** atau **Wavefront (.obj)** lewat menu `File > Export` di Blender.
+- Tekstur yang di-upload bakal ditempel "rata" ke semua mesh di model. Cocok buat model simpel, tapi mungkin aneh buat model yang UV map-nya kompleks banget.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) (Three.js for React)
+- [Drei](https://github.com/pmndrs/drei) (Helpers buat R3F)
+- [Tailwind CSS](https://tailwindcss.com/) (Styling sat-set)
+- [Lucide React](https://lucide.dev/) (Icon)
+
+___
+*Dibuat pas lagi gabut. Enjoy! 🚀*
