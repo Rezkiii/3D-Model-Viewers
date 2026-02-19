@@ -12,6 +12,9 @@ export interface LightingState {
   showPointLightHelper: boolean;
   modelRotation: [number, number, number];
   texture: string | null;
+  backgroundColor: string;
+  wireframe: boolean;
+  showStats: boolean;
 }
 
 interface LightingControlsProps {
@@ -33,6 +36,40 @@ export default function LightingControls({ config, onChange }: LightingControlsP
   return (
     <div className="absolute top-20 right-4 bg-slate-800/90 text-white p-4 rounded-lg backdrop-blur-sm w-72 max-h-[80vh] overflow-y-auto border border-slate-700 shadow-xl z-10">
       <h3 className="font-bold text-lg mb-4 text-blue-400">Scene Controls</h3>
+
+      {/* View Options */}
+      <div className="mb-6 space-y-3">
+        <h4 className="font-semibold text-sm uppercase text-slate-400 border-b border-slate-700 pb-1">View Options</h4>
+        <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs">Background Color</label>
+              <input
+                type="color"
+                value={config.backgroundColor}
+                onChange={(e) => updateConfig("backgroundColor", e.target.value)}
+                className="w-8 h-8 rounded cursor-pointer bg-transparent border-none"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+               <input 
+                 type="checkbox" 
+                 checked={config.wireframe}
+                 onChange={(e) => updateConfig("wireframe", e.target.checked)}
+                 id="wireframeMode"
+               />
+               <label htmlFor="wireframeMode" className="text-xs">Wireframe Mode</label>
+            </div>
+            <div className="flex items-center gap-2">
+               <input 
+                 type="checkbox" 
+                 checked={config.showStats}
+                 onChange={(e) => updateConfig("showStats", e.target.checked)}
+                 id="showStats"
+               />
+               <label htmlFor="showStats" className="text-xs">Show Model Stats</label>
+            </div>
+        </div>
+      </div>
 
       {/* Texture Upload */}
       <div className="mb-6 space-y-3">

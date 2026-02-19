@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState, useEffect } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, Stage, useGLTF, Loader } from "@react-three/drei";
+import { OrbitControls, Stage, useGLTF, Loader, Stats } from "@react-three/drei";
 import { OBJLoader } from "three-stdlib";
 import * as THREE from "three";
 import LightingControls, { LightingState } from "./LightingControls";
@@ -11,6 +11,26 @@ interface ModelProps {
   url: string;
   rotation: [number, number, number];
   texture: string | null;
+  wireframe: boolean;
+}
+
+// Separate component to handle wireframe
+function WireframeEffect({ target, wireframe }: { target: THREE.Object3D, wireframe: boolean }) {
+     useEffect(() => {
+        target.traverse((child) => {
+           if ((child as THREE.Mesh).isMesh) {
+             const mesh = child as THREE.Mesh;
+             // Ensure material is a standard material before setting map
+             if (mesh.material) {
+                // If it's an array for some reason (rare in simple imports but possible), use the first one
+                 const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+                 material.wireframe = wireframe;
+                 material.needsUpdate = true;
+             }
+           }
+       });
+     }, [target, wireframe]);
+     return null;
 }
 
 // Separate component to avoid conditional hook usage
@@ -52,22 +72,24 @@ function TextureLoaderComponent({ url, target }: { url: string, target: THREE.Ob
     return null;
 }
 
-function GLTFModel({ url, rotation, texture }: ModelProps) {
+function GLTFModel({ url, rotation, texture, wireframe }: ModelProps) {
   const { scene } = useGLTF(url);
   return (
     <group rotation={rotation}>
       <primitive object={scene} />
       {texture && <TextureLoaderComponent url={texture} target={scene} />}
+      <WireframeEffect target={scene} wireframe={wireframe} />
     </group>
   );
 }
 
-function OBJModel({ url, rotation, texture }: ModelProps) {
+function OBJModel({ url, rotation, texture, wireframe }: ModelProps) {
   const obj = useLoader(OBJLoader, url);
   return (
     <group rotation={rotation}>
       <primitive object={obj} />
       {texture && <TextureLoaderComponent url={texture} target={obj} />}
+      <WireframeEffect target={obj} wireframe={wireframe} />
     </group>
   );
 }
@@ -123,7 +145,10 @@ export default function Viewer3D({ url, type }: ViewerProps) {
     pointPosition: [-5, 5, 5],
     showPointLightHelper: true,
     modelRotation: [0, 0, 0],
-    texture: null
+    texture: null,
+    backgroundColor: "#111827", // Start with bg-slate-900 equivalent
+    wireframe: false,
+    showStats: false
   });
 
   if (!url) {
@@ -135,13 +160,14 @@ export default function Viewer3D({ url, type }: ViewerProps) {
   }
 
   return (
-    <div className="w-full h-screen bg-slate-900 relative">
+    <div className="w-full h-screen relative" style={{ backgroundColor: lighting.backgroundColor }}>
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+        {lighting.showStats && <Stats />}
         <SceneLights config={lighting} />
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.5}>
-            {(type === "glb" || type === "gltf") && <GLTFModel url={url} rotation={lighting.modelRotation} texture={lighting.texture} />}
-            {type === "obj" && <OBJModel url={url} rotation={lighting.modelRotation} texture={lighting.texture} />}
+            {(type === "glb" || type === "gltf") && <GLTFModel url={url} rotation={lighting.modelRotation} texture={lighting.texture} wireframe={lighting.wireframe} />}
+            {type === "obj" && <OBJModel url={url} rotation={lighting.modelRotation} texture={lighting.texture} wireframe={lighting.wireframe} />}
           </Stage>
         </Suspense>
         <OrbitControls makeDefault />
