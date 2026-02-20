@@ -1,25 +1,31 @@
 # Web 3D Viewer
 
-Aplikasi web sederhana untuk menampilkan model 3D langsung di browser. Dibuat untuk melihat file `.glb`, `.gltf`, atau `.obj` tanpa perlu membuka software 3D editor.
+A modern web application for rendering 3D models directly in your browser. Built to view `.glb`, `.gltf`, `.obj`, `.fbx`, and `.stl` files instantly without needing heavy 3D software.
 
-## Fitur
+## Features
 
-- **Format File**: Mendukung file `.glb`, `.gltf`, dan `.obj`.
-- **Lighting Controls**: Pengaturan pencahayaan yang dapat disesuaikan (Ambient, Directional, dan Point Light).
-- **Model Rotation**: Slider untuk merotasi model pada sumbu X, Y, dan Z.
-- **Texture Upload**: Fitur untuk mengunggah dan menerapkan tekstur gambar pada model.
-- **Viewer Controls**: Zoom, pan, dan orbit menggunakan kontrol standar.
+- **Comprehensive File Support**: Supports `.glb`, `.gltf`, `.obj`, `.fbx`, and `.stl` formats.
+- **Environment Presets**: Switch between realistic lighting environments (City, Studio, Sunset, Night, etc.).
+- **Post-Processing Effects**: Enable cinematic visual effects like **Bloom** (glow) and **Vignette**.
+- **Smart Texture Mapping**: 
+  - Automatically handles UV mapping and vertex normals to preserve original material properties.
+  - Includes a **Flip Texture Y** toggle to fix common orientation issues.
+- **Advanced Lighting Controls**: Customize Ambient, Directional, and Point lights with real-time visual helpers.
+- **Precise Manipulation**: Sliders for precise model rotation on X, Y, and Z axes.
+- **Intuitive Controls**: Standard orbit, zoom, and pan controls.
 
 ## Tech Stack
 
 - **Next.js 16** (App Router)
-- **React Three Fiber**
+- **React Three Fiber** & **Drei**
+- **Three-stdlib** (Loaders)
+- **React Postprocessing** (Effects)
 - **Tailwind CSS**
 - **Lucide React**
 
-## Cara Menjalankan
+## Getting Started
 
-1.  **Clone repository**:
+1.  **Clone the repository**:
     ```bash
     git clone https://github.com/username/web-3d-viewer.git
     cd web-3d-viewer
@@ -30,15 +36,15 @@ Aplikasi web sederhana untuk menampilkan model 3D langsung di browser. Dibuat un
     npm install
     ```
 
-3.  **Jalankan server development**:
+3.  **Run the development server**:
     ```bash
     npm run dev
     ```
 
-4.  Buka browser dan akses `http://localhost:3000`.
+4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Catatan
+## Notes
 
-- **Format Blender**: File asli Blender (`.blend`) tidak didukung secara langsung. Silakan export menjadi **glTF 2.0 (.glb/.gltf)** atau **Wavefront (.obj)** terlebih dahulu.
-- **Tekstur**: Tekstur yang diunggah akan diterapkan secara global ke seluruh mesh pada model.
+- **Blender Files**: Native Blender files (`.blend`) are not supported directly. Please export your models to **glTF 2.0**, **Wavefront (.obj)**, **FBX**, or **STL** before uploading.
+- **Textures**: While the viewer uses smart mapping logic, textures will look best on models that have proper **UV Maps** created in 3D modeling software.
 

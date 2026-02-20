@@ -9,15 +9,15 @@ const Viewer3D = dynamic(() => import("@/components/Viewer3D"), { ssr: false });
 
 export default function Home() {
   const [fileUrl, setFileUrl] = useState<string | null>(null);
-  const [fileType, setFileType] = useState<"glb" | "gltf" | "obj" | null>(null);
+  const [fileType, setFileType] = useState<"glb" | "gltf" | "obj" | "fbx" | "stl" | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
 
   const handleFile = (file: File) => {
     const extension = file.name.split(".").pop()?.toLowerCase();
     
-    if (extension !== "glb" && extension !== "gltf" && extension !== "obj") {
-      alert("Unsupported file format. Please upload .glb, .gltf, or .obj");
+    if (extension !== "glb" && extension !== "gltf" && extension !== "obj" && extension !== "fbx" && extension !== "stl") {
+      alert("Unsupported file format. Please upload .glb, .gltf, .obj, .fbx, or .stl");
       return;
     }
     
@@ -28,7 +28,7 @@ export default function Home() {
     
     const url = URL.createObjectURL(file);
     setFileUrl(url);
-    setFileType(extension as "glb" | "gltf" | "obj");
+    setFileType(extension as "glb" | "gltf" | "obj" | "fbx" | "stl");
     setFileName(file.name);
   };
 

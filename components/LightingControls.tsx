@@ -15,6 +15,10 @@ export interface LightingState {
   backgroundColor: string;
   wireframe: boolean;
   showStats: boolean;
+  environmentPreset: string;
+  enableBloom: boolean;
+  enableVignette: boolean;
+  textureFlipY: boolean;
 }
 
 interface LightingControlsProps {
@@ -36,6 +40,52 @@ export default function LightingControls({ config, onChange }: LightingControlsP
   return (
     <div className="absolute top-20 right-4 bg-slate-800/90 text-white p-4 rounded-lg backdrop-blur-sm w-72 max-h-[80vh] overflow-y-auto border border-slate-700 shadow-xl z-10">
       <h3 className="font-bold text-lg mb-4 text-blue-400">Scene Controls</h3>
+
+      {/* Environment & Post Processing */}
+       <div className="mb-6 space-y-3">
+        <h4 className="font-semibold text-sm uppercase text-slate-400 border-b border-slate-700 pb-1">Environment & Effects</h4>
+        <div className="flex flex-col gap-2">
+           <div className="flex flex-col gap-1">
+             <label className="text-xs">Environment Preset</label>
+             <select 
+               value={config.environmentPreset}
+               onChange={(e) => updateConfig("environmentPreset", e.target.value)}
+               className="bg-slate-700 text-xs rounded p-1 border border-slate-600"
+             >
+                <option value="city">City</option>
+                <option value="sunset">Sunset</option>
+                <option value="dawn">Dawn</option>
+                <option value="night">Night</option>
+                <option value="warehouse">Warehouse</option>
+                <option value="forest">Forest</option>
+                <option value="apartment">Apartment</option>
+                <option value="studio">Studio</option>
+                <option value="park">Park</option>
+                <option value="lobby">Lobby</option>
+             </select>
+           </div>
+           
+           <div className="flex items-center gap-2 mt-2">
+               <input 
+                 type="checkbox" 
+                 checked={config.enableBloom}
+                 onChange={(e) => updateConfig("enableBloom", e.target.checked)}
+                 id="enableBloom"
+               />
+               <label htmlFor="enableBloom" className="text-xs">Enable Bloom</label>
+            </div>
+
+            <div className="flex items-center gap-2">
+               <input 
+                 type="checkbox" 
+                 checked={config.enableVignette}
+                 onChange={(e) => updateConfig("enableVignette", e.target.checked)}
+                 id="enableVignette"
+               />
+               <label htmlFor="enableVignette" className="text-xs">Enable Vignette</label>
+            </div>
+        </div>
+      </div>
 
       {/* View Options */}
       <div className="mb-6 space-y-3">
@@ -100,6 +150,19 @@ export default function LightingControls({ config, onChange }: LightingControlsP
                   Remove Texture
                 </button>
               </div>
+            )}
+            
+            {/* Texture Options */}
+            {config.texture && (
+                <div className="flex items-center gap-2 mt-1">
+                    <input 
+                        type="checkbox" 
+                        checked={config.textureFlipY}
+                        onChange={(e) => updateConfig("textureFlipY", e.target.checked)}
+                        id="textureFlipY"
+                    />
+                    <label htmlFor="textureFlipY" className="text-xs">Flip Texture Y (Fix Mapping)</label>
+                </div>
             )}
         </div>
       </div>
